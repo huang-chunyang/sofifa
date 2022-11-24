@@ -5,11 +5,14 @@ import pandas as pd
 import re
 import time
 from tqdm import tqdm
+import random
 
+rank = 2
+pages = rank * 50
 # %%
 data_4 = []
 #for train_name in tqdm(train_names, desc='读取文件及处理'):
-for i in tqdm(range(50), desc="爬取页面"):
+for i in tqdm(range(pages, pages + 50), desc="爬取页面"):
     offset = i * 60
     standing_url = "https://sofifa.com/?offset=" + str(offset)
     links_data = requests.get(standing_url)
@@ -19,7 +22,7 @@ for i in tqdm(range(50), desc="爬取页面"):
     # 利用if 选择运动员link，获得60个运动员的数据链接
     athlete_links = ["https://sofifa.com" + link_a.get("href") for link_a in athlete_links_a_unselected if link_a.get("data-tip-pos") == "top"]
     for athlete_link in athlete_links:
-        time.sleep(1)
+        time.sleep(1 + random.random())
         # 爬取运动员页面的姓名和前四项'overall_rating', 'potential', 'value', 'wage'
         # 数据准备
         athlete_data = requests.get(athlete_link)
@@ -85,27 +88,16 @@ for i in tqdm(range(50), desc="爬取页面"):
             data_list[i] = 0
         
         data_4.append(data_list)
-        time.sleep(3)
+        time.sleep(3 + random.random())
 
 
 # %% [markdown]
 # 开始爬取运动员页面，例如，https://sofifa.com/player/268421/mathys-tel/230005/
 
 # %%
-len(data_4) # 330 * 60 
+print(len(data_4)) # 330 * 60 
 
 # %%
 frame_data_4 = pd.DataFrame(data_4, columns=name_list)
-frame_data_4.to_csv("./data_4/50pages.csv")
-
-# %%
-
-
-# %%
-
-
-
-# %%
-
-
-
+file_path = "./data_4/" + str(pages) + "_" + str(pages + 50) + "pages.csv"
+frame_data_4.to_csv(file_path)
