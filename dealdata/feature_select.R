@@ -8,7 +8,9 @@ library(readr)
 # set.seed(1)
 # Boruta.Ozone <- Boruta(V4 ~ ., data = Ozone, doTrace = 2, ntree = 500)
 # Load the data
-player <- read_csv("../datafrom200/players.csv")
+# player <- read_csv("../datafrom200/players.csv")
+player <- read.csv("/home/juanxincai/srt_2/sofifa/datafrom200/players.csv", header = TRUE, sep = ",")
+
 
 # Handle missing data
 player <- na.omit(player)
@@ -24,7 +26,7 @@ data <- cbind(X,Y)
  
 # Run Boruta
 set.seed(123)
-boruta.output <- Boruta(value ~ ., data=data, doTrace=2)
+boruta.output <- Boruta(value ~ ., data=data, doTrace=2, holdHistory=TRUE)
 
 print(boruta.output)
 plot(boruta.output)
