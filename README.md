@@ -15,3 +15,5 @@ trypic 中的图像为我对数据集粗略的观看
     1. distribution.pdf 是看各因素的分布，part1_distributions.pdf 是看非守门员各因素的分布
     2. try_pictures.pdf 是看各因素与vlue, wage 的关系， part1_try_pictures.pdf是看非守门员各因素与vlue, wage 的关系
 靠dealdata/plot_try.ipynb 完成的
+
+test
